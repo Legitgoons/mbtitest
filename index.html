@@ -24,6 +24,11 @@
         <button id="A" type="button" class="btn btn-primary">Primary</button>
         <button id="B" type="button" class="btn btn-primary">Primary</button>
     </article>
+    <article class = "result">
+        <img id="img" class="rounded-circle mt-5" src="puffdaehee.jfif" alt="member">
+        <h2 id = "member" class="mt-5">멤버 이름</h2>
+        <h3 id = "explain" class="mt-5">설명</h3>
+    </article>
     <input type = "hidden" id = "EI" value = "0">
     <input type = "hidden" id = "SN" value = "0">
     <input type = "hidden" id = "TF" value = "0">
@@ -35,7 +40,21 @@
         var q = { // 객체 생성 
             1: {"title" : "문제 1번", "type" : "EI", "A" : "E", "B" : "I"},
             2: {"title" : "문제 2번", "type" : "EI", "A" : "E", "B" : "I"},
-            3: {"title" : "문제 3번", "type" : "EI", "A" : "E", "B" : "I"}
+            3: {"title" : "문제 3번", "type" : "EI", "A" : "E", "B" : "I"},
+            4: {"title" : "문제 4번", "type" : "SN", "A" : "S", "B" : "N"},
+            5: {"title" : "문제 5번", "type" : "SN", "A" : "S", "B" : "N"},
+            6: {"title" : "문제 6번", "type" : "SN", "A" : "S", "B" : "N"},
+            7: {"title" : "문제 7번", "type" : "TF", "A" : "T", "B" : "F"},
+            8: {"title" : "문제 8번", "type" : "TF", "A" : "T", "B" : "F"},
+            9: {"title" : "문제 9번", "type" : "TF", "A" : "T", "B" : "F"},
+            10: {"title" : "문제 10번", "type" : "JP", "A" : "J", "B" : "P"},
+            11: {"title" : "문제 11번", "type" : "JP", "A" : "J", "B" : "P"},
+            12: {"title" : "문제 12번", "type" : "JP", "A" : "J", "B" : "P"}
+        }
+        var result = {
+            "ESTJ": {"member": "PUFF DAEHEE", "explain" : "조심해", "img" : "puffdaehee.jfif"},
+            "INFP": {"member": "재규어 중사", "explain" : "내가 니 비밀 병기가 된다면 어떨것 같아", "img" : "SFC.JGR.jfif"},
+            "INTJ": {"member": "미노이", "explain" : "우리집 고양이 츄르를 좋아해", "img" : "meenoi.jpg"}
         }
         function start() { //$는 jquery 사용
            $(".start").hide(); // 버튼을 클릭하면 start클래스가 숨겨짐(jquery 사용)
@@ -52,12 +71,26 @@
             next(); 
         });
         function next () {
-            $(".progress-bar").attr('style', 'width: calc(100/12*'+num+'%)');
-            $("#title").html(q[num]["title"]);
-            $("#type").val(q[num]["type"]);
-            $("#A").html(q[num]["A"]);
-            $("#B").html(q[num]["B"]);
-            num++; // 다음문제로 넘어가도록
+            if (num == 13){
+                $(".question").hide();
+                $(".result").show();
+                var mbti ="";
+                ($("#EI").val() > 2 ? mbti+="E" : mbti+="I"); // if문은 너무 기니까 3항연산자로 작성
+                ($("#SN").val() > 2 ? mbti+="S" : mbti+="N");
+                ($("#TF").val() > 2 ? mbti+="T" : mbti+="F");
+                ($("#JP").val() > 2 ? mbti+="J" : mbti+="P");
+                alert(mbti);
+                $("#img").attr("src", result[mbti]["img"]); // 이름, 설명, 사진 바꿔주기
+                $("#member").html(result[mbti]["member"]);
+                $("#explain").html(result[mbti]["explain"]);
+            } else{
+                $(".progress-bar").attr('style', 'width: calc(100/12*'+num+'%)');
+                $("#title").html(q[num]["title"]);
+                $("#type").val(q[num]["type"]);
+                $("#A").html(q[num]["A"]);
+                $("#B").html(q[num]["B"]);
+                num++; // 다음문제로 넘어가도록
+            }
         }
     </script>
 </body>
